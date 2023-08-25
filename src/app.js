@@ -1,6 +1,6 @@
 let covidData;
 let currentPage = 1;
-const itemsPerPage = 30;
+const itemsPerPage = 32;
 let startIndex, endIndex;
 
 const dateEl = document.getElementById('date')
