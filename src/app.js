@@ -3,6 +3,8 @@ let currentPage = 1;
 const itemsPerPage = 30;
 let startIndex, endIndex;
 
+
+
 async function getData() {
     const response = await fetch('https://disease.sh/v3/covid-19/countries');
     const data = await response.json();
@@ -40,7 +42,61 @@ function displayPage() {
         card.append(flag, cardBody);
         mainCont.append(card);
         
-})}
+        function showPopup(country) {
+            const overlay = document.createElement('div');
+            overlay.className = 'overlay';
+            overlay.addEventListener('click', () => {
+                document.body.removeChild(overlay);
+                popup.remove();
+            });
+            document.body.appendChild(overlay);
+        
+            const popup = document.createElement('div');
+            popup.className = 'popup bg-success-subtle';
+        
+            const popupContent = document.createElement('div');
+            popupContent.className = 'popup-content';
+        
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'popup-close';
+            closeBtn.innerHTML = '&times;';
+            closeBtn.addEventListener('click', () => {
+                document.body.removeChild(overlay);
+                popup.remove();
+            });
+        
+            const countryName = document.createElement('h2');
+            countryName.textContent = country.country;
+        
+            const countryPopulation = document.createElement('p');
+            countryPopulation.textContent = `Country Population: ${country.population}`;
+        
+            const reportedCasesToday = document.createElement('p');
+            reportedCasesToday.textContent = `Reported Cases Today: ${country.todayCases}`;
+        
+            const totalCase = document.createElement('p');
+            totalCase.textContent = `Total Cases: ${country.cases}`;
+        
+            const totalDeath = document.createElement('p');
+            totalDeath.textContent = `Total Deaths: ${country.deaths}`;
+        
+            const recoveredNo = document.createElement('p');
+            recoveredNo.textContent = `Total Recovered: ${country.recovered}`;
+        
+            popupContent.append(closeBtn, countryName, countryPopulation, reportedCasesToday, totalCase, totalDeath, recoveredNo);
+            popup.append(popupContent);
+            
+            document.body.appendChild(popup);
+        }
+
+        
+        
+        
+        card.addEventListener('click', () => {
+            showPopup(country);
+        });
+    });
+}
 
 function prevPage() {
     if (currentPage > 1) {
@@ -55,6 +111,7 @@ function nextPage() {
         showPage();
     }
 }
+
 function showPage() {
     const prevBtn = document.getElementById('prev-button');
     const nextBtn = document.getElementById('next-button');
