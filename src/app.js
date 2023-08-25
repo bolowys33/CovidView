@@ -3,6 +3,18 @@ let currentPage = 1;
 const itemsPerPage = 30;
 let startIndex, endIndex;
 
+const dateEl = document.getElementById('date')
+dateEl.innerText = new Date().toLocaleDateString(undefined,
+    {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }
+)
 
 
 async function getData() {
