@@ -55,7 +55,6 @@ function nextPage() {
         showPage();
     }
 }
-
 function showPage() {
     const prevBtn = document.getElementById('prev-button');
     const nextBtn = document.getElementById('next-button');
